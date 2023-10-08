@@ -1,9 +1,18 @@
-// checksLength
-
-function checksLength (string, number) {
+function checksLength(string, number) {
   return string.length <= number;
 }
 
-console.log(checksLength ('проверяемая строка', 20));
-console.log(checksLength ('проверяемая строка', 18));
-console.log(checksLength ('проверяемая строка', 10));
+function checksPalindrome(string) {
+  const normalizeString = string.replaceAll(' ', '').toLowerCase();
+  let palindromeString = '';
+
+  for (let i = normalizeString.length - 1; i >= 0; i--) {
+    palindromeString += normalizeString.at(i);
+  }
+
+  if (normalizeString === palindromeString) {
+    return true;
+  }
+
+  return false;
+}
