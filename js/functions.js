@@ -16,3 +16,18 @@ function checksPalindrome(string) {
 
   return false;
 }
+
+function getNumber(string) {
+  const normalizeString = string.toString();
+  let number = '';
+
+  for (let i = 0; i <= normalizeString.length; i++) {
+
+    if (!Number.isNaN(parseInt(normalizeString.at(i), 10))) {
+      number += normalizeString.at(i);
+    }
+  }
+
+  return parseInt(number, 10);
+}
+
