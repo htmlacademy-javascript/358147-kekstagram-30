@@ -41,6 +41,16 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
+function createIdGenerator () {
+  let lastGeneratedId = 0;
+
+  return function () {
+    lastGeneratedId += 1;
+    return lastGeneratedId;
+  };
+}
+
+const generateId = createIdGenerator();
 
 const createComments = () => {
   const comment = [];
@@ -48,7 +58,7 @@ const createComments = () => {
   for (let i = 0; i < getRandomInteger(1, 30); i++) {
 
     comment[i] = {
-      id: i + 1,
+      id: generateId(),
       avatar: 'img/avatar-' + getRandomInteger(1, 6) + '.svg',
       message: getRandomArrayElement(messages),
       name: getRandomArrayElement(names)
@@ -65,7 +75,7 @@ const createDate = (nom) => {
   for (let i = 0; i < nom; i++) {
 
     arrayPhotos[i] = {
-      id: i + 1,
+      id: generateId(),
       url: 'photos/' + (i + 1) + '.jpg',
       description: getRandomArrayElement(descriptions),
       likes: getRandomInteger(15, 200),
