@@ -42,12 +42,12 @@ const getRandomInteger = (a, b) => {
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 
-const createComents = () => {
-  const coment = [];
+const createComments = () => {
+  const comment = [];
 
   for (let i = 0; i < getRandomInteger(1, 30); i++) {
 
-    coment[i] = {
+    comment[i] = {
       id: i + 1,
       avatar: 'img/avatar-' + getRandomInteger(1, 6) + '.svg',
       message: getRandomArrayElement(messages),
@@ -55,7 +55,7 @@ const createComents = () => {
     };
   }
 
-  return coment;
+  return comment;
 };
 
 
@@ -69,7 +69,7 @@ const createDate = (nom) => {
       url: 'photos/' + (i + 1) + '.jpg',
       description: getRandomArrayElement(descriptions),
       likes: getRandomInteger(15, 200),
-      comments: createComents()
+      comments: createComments()
     };
   }
 
