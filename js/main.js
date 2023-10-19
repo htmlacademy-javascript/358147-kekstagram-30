@@ -1,4 +1,4 @@
-const descriptions = [
+const DESCRIPTIONS = [
   'автомобиль ',
   'кот',
   'пейзаж',
@@ -15,7 +15,7 @@ const descriptions = [
   'мост'
 ];
 
-const messages = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -24,7 +24,7 @@ const messages = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const names = [
+const NAMES = [
   'Андрей',
   'Мария',
   'Иван',
@@ -41,7 +41,7 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-function createIdGenerator () {
+function createIdGenerator() {
   let lastGeneratedId = 0;
 
   return function () {
@@ -57,34 +57,32 @@ const createComments = () => {
 
   for (let i = 0; i < getRandomInteger(1, 30); i++) {
 
-    comment[i] = {
+
+    comment.push({
       id: generateId(),
-      avatar: 'img/avatar-' + getRandomInteger(1, 6) + '.svg',
-      message: getRandomArrayElement(messages),
-      name: getRandomArrayElement(names)
-    };
+      avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+      message: getRandomArrayElement(MESSAGES),
+      name: getRandomArrayElement(NAMES)
+    });
   }
 
   return comment;
 };
 
 
-const createDate = (nom) => {
+const createData = (count) => {
   const arrayPhotos = [];
 
-  for (let i = 0; i < nom; i++) {
+  for (let i = 0; i < count; i++) {
 
-    arrayPhotos[i] = {
+    arrayPhotos.push({
       id: generateId(),
-      url: 'photos/' + (i + 1) + '.jpg',
-      description: getRandomArrayElement(descriptions),
+      url: `photos/${i + 1}.jpg`,
+      description: getRandomArrayElement(DESCRIPTIONS),
       likes: getRandomInteger(15, 200),
       comments: createComments()
-    };
+    });
   }
 
   return arrayPhotos;
 };
-
-
-console.log(createDate(25));
