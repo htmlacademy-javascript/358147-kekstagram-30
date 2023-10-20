@@ -14,5 +14,4 @@ function createIdGenerator() {
   };
 }
 
-export {getRandomInteger};
-export {createIdGenerator};
+export {getRandomInteger, createIdGenerator};

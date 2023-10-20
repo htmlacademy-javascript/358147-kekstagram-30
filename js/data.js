@@ -1,5 +1,4 @@
-import {createIdGenerator} from './util';
-import {getRandomInteger} from './util';
+import {createIdGenerator, getRandomInteger} from './util';
 
 const DESCRIPTIONS = [
   'автомобиль ',
