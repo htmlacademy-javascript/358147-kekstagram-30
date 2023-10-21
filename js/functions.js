@@ -2,6 +2,7 @@ function checksLength(string, number) {
   return string.length <= number;
 }
 
+
 function checksPalindrome(string) {
   const normalizeString = string.replaceAll(' ', '').toLowerCase();
   let palindromeString = '';
@@ -17,6 +18,7 @@ function checksPalindrome(string) {
   return false;
 }
 
+
 function getNumber(string) {
   const normalizeString = string.toString();
   let number = '';
@@ -31,3 +33,22 @@ function getNumber(string) {
   return parseInt(number, 10);
 }
 
+
+function calcWorkTime(start, end, startMeet, durationMeet) {
+
+  function calсMinutes(string) {
+    const minutArrey = string.split(':');
+    const result = parseInt(minutArrey[0], 10) * 60 + parseInt(minutArrey[1], 10);
+    return result;
+  }
+
+  const startMinutes = calсMinutes(start);
+  const endMinutes = calсMinutes(end);
+  const startMeetMinutes = calсMinutes(startMeet);
+
+  if (startMinutes <= startMeetMinutes && endMinutes >= startMeetMinutes + durationMeet) {
+    return true;
+  }
+
+  return false;
+}
