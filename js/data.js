@@ -1,4 +1,4 @@
-import {createIdGenerator, getRandomInteger} from './util';
+import {createIdGenerator, getRandomInteger, getRandomArrayElement} from './util';
 
 const DESCRIPTIONS = [
   'автомобиль ',
@@ -33,8 +33,6 @@ const NAMES = [
   'Анна',
   'Дмитрий'
 ];
-
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const generateId = createIdGenerator();
 
