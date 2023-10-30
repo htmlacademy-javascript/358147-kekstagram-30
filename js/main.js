@@ -1,3 +1,5 @@
 import {createData} from'./data';
 
-console.log(createData(25));
+import './create-picture';
+
+// console.log(createData(25));
