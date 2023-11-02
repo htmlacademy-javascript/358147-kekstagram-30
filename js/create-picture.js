@@ -3,14 +3,14 @@ function createPicture (data) {
   const pictures = document.querySelector('.pictures');
   const fragment = document.createDocumentFragment();
 
-  data.forEach((i) => {
-    const item = tamplate.content.querySelector('.picture');
-    const photo = item.cloneNode(true);
+  data.forEach((item) => {
+    const picture = tamplate.content.querySelector('.picture');
+    const photo = picture.cloneNode(true);
 
-    photo.querySelector('.picture__img').alt = i.description;
-    photo.querySelector('.picture__img').src = i.url;
-    photo.querySelector('.picture__comments').textContent = i.likes;
-    photo.querySelector('.picture__likes').textContent = i.comments.length;
+    photo.querySelector('.picture__img').alt = item.description;
+    photo.querySelector('.picture__img').src = item.url;
+    photo.querySelector('.picture__comments').textContent = item.likes;
+    photo.querySelector('.picture__likes').textContent = item.comments.length;
 
     fragment.appendChild(photo);
   });
