@@ -1,3 +1,4 @@
 import {createData} from'./data';
+import {createPicture} from'./create-picture';
 
-console.log(createData(25));
+createPicture(createData(25));
