@@ -8,6 +8,7 @@ const container = document.querySelector('.pictures');
 const socialList = document.querySelector('.social__comments');
 const body = document.querySelector('body');
 
+const CHANGE_STEP_COMMENT = 5;
 let commentCounter = 0;
 let commentShownCount = 0;
 
@@ -61,7 +62,7 @@ function createComent(item, i) {
 }
 
 function renderComents(array) {
-  commentCounter = commentCounter + 5;
+  commentCounter = commentCounter + CHANGE_STEP_COMMENT;
 
   if (commentCounter < array.length) {
     template.querySelector('.comments-loader').classList.remove('hidden');
