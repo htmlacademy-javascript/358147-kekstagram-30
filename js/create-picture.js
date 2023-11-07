@@ -9,8 +9,10 @@ function createPicture (data) {
 
     photo.querySelector('.picture__img').alt = item.description;
     photo.querySelector('.picture__img').src = item.url;
-    photo.querySelector('.picture__comments').textContent = item.likes;
-    photo.querySelector('.picture__likes').textContent = item.comments.length;
+    photo.querySelector('.picture__comments').textContent = item.comments.length;
+    photo.querySelector('.picture__likes').textContent = item.likes;
+
+    photo.dataset.id = item.id;
 
     fragment.appendChild(photo);
   });

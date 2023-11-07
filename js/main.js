@@ -1,4 +1,3 @@
-import {createData} from'./data';
-import {createPicture} from'./create-picture';
+import {renderGallery} from'./gallery';
 
-createPicture(createData(25));
+renderGallery();
