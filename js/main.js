@@ -1,4 +1,3 @@
-import {createData} from'./data';
-import {renderGallery} from'./gellery';
+import {renderGallery} from'./gallery';
 
-renderGallery(createData(25));
+renderGallery();

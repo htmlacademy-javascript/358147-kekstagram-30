@@ -14,6 +14,12 @@ function createIdGenerator() {
   };
 }
 
+function isEscapeKey(evt) {
+  if (evt.key === 'Escape') {
+    return true;
+  }
+}
+
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-export {getRandomInteger, createIdGenerator, getRandomArrayElement};
+export { getRandomInteger, createIdGenerator, getRandomArrayElement, isEscapeKey };
