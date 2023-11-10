@@ -10,7 +10,6 @@ const body = document.querySelector('body');
 
 const CHANGE_STEP_COMMENT = 5;
 let commentCounter = 0;
-let commentShownCount = 0;
 
 const fragment = document.createDocumentFragment();
 const pictures = createData(25);
@@ -50,15 +49,14 @@ document.querySelector('.comments-loader').addEventListener('click', () => {
 });
 
 
-function createComent(item, i) {
+function createComent(item) {
   const comment = commentTemplate.cloneNode(true);
 
-  comment.querySelector('.social__picture').src = item[i].avatar;
-  comment.querySelector('.social__picture').alt = item[i].name;
-  comment.querySelector('.social__text').textContent = item[i].message;
+  comment.querySelector('.social__picture').src = item.avatar;
+  comment.querySelector('.social__picture').alt = item.name;
+  comment.querySelector('.social__text').textContent = item.message;
 
   fragment.appendChild(comment);
-  commentShownCount = commentShownCount + 1;
 }
 
 function renderComents(array) {
@@ -68,22 +66,17 @@ function renderComents(array) {
     template.querySelector('.comments-loader').classList.remove('hidden');
   } else {
     template.querySelector('.comments-loader').classList.add('hidden');
+
+    commentCounter = array.length;
   }
 
-  if (commentCounter >= array.length) {
-    for (let i = 0; i < array.length; i++) {
-      createComent(array, i);
-    }
-  } else {
-    for (let i = 0; i < commentCounter; i++) {
-      createComent(array, i);
-    }
+  for (let i = 0; i < commentCounter; i++) {
+    createComent(array[i]);
   }
 
   socialList.innerHTML = '';
   socialList.appendChild(fragment);
-  template.querySelector('.social__comment-shown-count').textContent = commentShownCount;
-  commentShownCount = 0;
+  template.querySelector('.social__comment-shown-count').textContent = commentCounter;
 }
 
 
@@ -99,7 +92,6 @@ function closeModal() {
   document.removeEventListener('keydown', onEscapeKeydown);
   body.classList.remove('modal-open');
   commentCounter = 0;
-  commentShownCount = 0;
 }
 
 function renderGallery() {
