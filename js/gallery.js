@@ -81,7 +81,7 @@ function renderComents(array) {
 
 
 function onEscapeKeydown(evt) {
-  if (isEscapeKey) {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeModal();
   }
