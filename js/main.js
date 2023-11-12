@@ -1,5 +1,5 @@
 import {renderGallery} from'./gallery';
-
-import './form';
+import { showForm } from './form';
 
 renderGallery();
+showForm();
