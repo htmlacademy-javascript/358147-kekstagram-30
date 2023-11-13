@@ -9,8 +9,9 @@ const uploadCancel = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 
 const MAX_LENGHT_COMMENT = 140;
+const MAX_COUNT_HASHTAG = 5;
 const HASHTAG_VALID = /^#[a-zа-яё0-9]{1,19}$/i;
-let arreyTags = [];
+let arrayTags = [];
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -40,22 +41,22 @@ function normalizeTags(tagString) {
 }
 
 function validateHashtag() {
-  if (arreyTags.every((tag) => HASHTAG_VALID.test(tag))) {
+  if (arrayTags.every((tag) => HASHTAG_VALID.test(tag))) {
     return true;
   }
   return false;
 }
 
 function validateUniqueHashtag() {
-  const arreyTagsLowerCase = arreyTags.map((tag) => tag.toLowerCase());
-  if (arreyTagsLowerCase.length === new Set(arreyTagsLowerCase).size) {
+  const arrayTagsLowerCase = arrayTags.map((tag) => tag.toLowerCase());
+  if (arrayTagsLowerCase.length === new Set(arrayTagsLowerCase).size) {
     return true;
   }
   return false;
 }
 
 function validateCountHashtag() {
-  if (arreyTags.length <= 5) {
+  if (arrayTags.length <= MAX_COUNT_HASHTAG) {
     return true;
   }
   return false;
@@ -77,7 +78,7 @@ pristine.addValidator(inputDescription, validateComment, 'длина комме�
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  arreyTags = normalizeTags(inputHashtags.value);
+  arrayTags = normalizeTags(inputHashtags.value);
   pristine.validate();
 });
 
