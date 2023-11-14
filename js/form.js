@@ -1,5 +1,6 @@
 import { isEscapeKey } from './util';
 import { resetEffect, onRadioClick } from './effect';
+import { resetScale, onButtonSmallerClick, onButtonBiggerClick } from './scale';
 
 const body = document.querySelector('body');
 const inputUpload = document.querySelector('.img-upload__input');
@@ -9,6 +10,8 @@ const uploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadCancel = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 const effectList = document.querySelector('.effects__list');
+const buttonSmaller = document.querySelector('.scale__control--smaller');
+const buttonBigger = document.querySelector('.scale__control--bigger');
 
 const MAX_LENGHT_COMMENT = 140;
 const MAX_COUNT_HASHTAG = 5;
@@ -26,8 +29,11 @@ function modalOpen() {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
   resetEffect();
+  resetScale();
   document.addEventListener('keydown', onEscapeKeydown);
   effectList.addEventListener('click', onRadioClick);
+  buttonSmaller.addEventListener('click', onButtonSmallerClick);
+  buttonBigger.addEventListener('click', onButtonBiggerClick);
 }
 
 function modalClose() {
@@ -35,6 +41,8 @@ function modalClose() {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapeKeydown);
   document.removeEventListener('click', onRadioClick);
+  buttonSmaller.removeEventListener('click', onButtonSmallerClick);
+  buttonBigger.removeEventListener('click', onButtonBiggerClick);
   form.reset();
   pristine.reset();
 }

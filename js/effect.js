@@ -1,3 +1,5 @@
+import { resetScale } from './scale';
+
 const imgPreview = document.querySelector('.img-upload__preview img');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const effectValue = document.querySelector('.effect-level__value');
@@ -82,6 +84,7 @@ function effect(evt) {
   const element = evt.target.closest('.effects__radio');
 
   if (element) {
+    resetScale();
     curentEffect = element.value;
     if (curentEffect === 'none') {
       imgPreview.style.filter = 'none';
