@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util';
+import { resetEffect, onRadioClick } from './effect';
 
 const body = document.querySelector('body');
 const inputUpload = document.querySelector('.img-upload__input');
@@ -7,6 +8,7 @@ const inputDescription = document.querySelector('.text__description');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadCancel = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
+const effectList = document.querySelector('.effects__list');
 
 const MAX_LENGHT_COMMENT = 140;
 const MAX_COUNT_HASHTAG = 5;
@@ -23,16 +25,17 @@ const pristine = new Pristine(form, {
 function modalOpen() {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
+  resetEffect();
   document.addEventListener('keydown', onEscapeKeydown);
+  effectList.addEventListener('click', onRadioClick);
 }
 
 function modalClose() {
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapeKeydown);
-  inputHashtags.value = '';
-  inputDescription.value = '';
-  inputUpload.value = '';
+  document.removeEventListener('click', onRadioClick);
+  form.reset();
   pristine.reset();
 }
 
@@ -77,9 +80,12 @@ pristine.addValidator(inputDescription, validateComment, 'длина комме�
 
 
 form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
   arrayTags = normalizeTags(inputHashtags.value);
-  pristine.validate();
+  const isValid = pristine.validate();
+
+  if (!isValid) {
+    evt.preventDefault();
+  }
 });
 
 function onInputChange() {
