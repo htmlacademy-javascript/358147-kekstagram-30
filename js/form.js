@@ -1,4 +1,6 @@
 import { isEscapeKey } from './util';
+import { resetEffect, onRadioClick } from './effect';
+import { resetScale, onButtonSmallerClick, onButtonBiggerClick } from './scale';
 
 const body = document.querySelector('body');
 const inputUpload = document.querySelector('.img-upload__input');
@@ -7,10 +9,14 @@ const inputDescription = document.querySelector('.text__description');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadCancel = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
+const effectList = document.querySelector('.effects__list');
+const buttonSmaller = document.querySelector('.scale__control--smaller');
+const buttonBigger = document.querySelector('.scale__control--bigger');
 
 const MAX_LENGHT_COMMENT = 140;
+const MAX_COUNT_HASHTAG = 5;
 const HASHTAG_VALID = /^#[a-zа-яё0-9]{1,19}$/i;
-let arreyTags = [];
+let arrayTags = [];
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -22,16 +28,22 @@ const pristine = new Pristine(form, {
 function modalOpen() {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
+  resetEffect();
+  resetScale();
   document.addEventListener('keydown', onEscapeKeydown);
+  effectList.addEventListener('click', onRadioClick);
+  buttonSmaller.addEventListener('click', onButtonSmallerClick);
+  buttonBigger.addEventListener('click', onButtonBiggerClick);
 }
 
 function modalClose() {
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapeKeydown);
-  inputHashtags.value = '';
-  inputDescription.value = '';
-  inputUpload.value = '';
+  document.removeEventListener('click', onRadioClick);
+  buttonSmaller.removeEventListener('click', onButtonSmallerClick);
+  buttonBigger.removeEventListener('click', onButtonBiggerClick);
+  form.reset();
   pristine.reset();
 }
 
@@ -40,22 +52,22 @@ function normalizeTags(tagString) {
 }
 
 function validateHashtag() {
-  if (arreyTags.every((tag) => HASHTAG_VALID.test(tag))) {
+  if (arrayTags.every((tag) => HASHTAG_VALID.test(tag))) {
     return true;
   }
   return false;
 }
 
 function validateUniqueHashtag() {
-  const arreyTagsLowerCase = arreyTags.map((tag) => tag.toLowerCase());
-  if (arreyTagsLowerCase.length === new Set(arreyTagsLowerCase).size) {
+  const arrayTagsLowerCase = arrayTags.map((tag) => tag.toLowerCase());
+  if (arrayTagsLowerCase.length === new Set(arrayTagsLowerCase).size) {
     return true;
   }
   return false;
 }
 
 function validateCountHashtag() {
-  if (arreyTags.length <= 5) {
+  if (arrayTags.length <= MAX_COUNT_HASHTAG) {
     return true;
   }
   return false;
@@ -76,9 +88,12 @@ pristine.addValidator(inputDescription, validateComment, 'длина комме�
 
 
 form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  arreyTags = normalizeTags(inputHashtags.value);
-  pristine.validate();
+  arrayTags = normalizeTags(inputHashtags.value);
+  const isValid = pristine.validate();
+
+  if (!isValid) {
+    evt.preventDefault();
+  }
 });
 
 function onInputChange() {
