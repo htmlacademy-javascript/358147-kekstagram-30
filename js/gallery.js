@@ -1,6 +1,7 @@
 import { createPicture } from './create-picture';
 import { isEscapeKey } from './util';
-import { createData } from './data';
+// import { createData } from './data';
+import { loadPicrure } from './api';
 
 const template = document.querySelector('.big-picture');
 const commentTemplate = template.querySelector('.social__comment');
@@ -12,9 +13,14 @@ const CHANGE_STEP_COMMENT = 5;
 let commentCounter = 0;
 
 const fragment = document.createDocumentFragment();
-const pictures = createData(25);
+let pictures = {};
 
-createPicture(pictures);
+try {
+  pictures = await loadPicrure();
+  createPicture(pictures);
+} catch {
+  // TODO в блоке #data-error внутри шаблона template, перед закрывающим тегом </body> (4.2)
+}
 
 let comments = [];
 

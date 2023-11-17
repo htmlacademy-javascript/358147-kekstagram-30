@@ -1,6 +1,7 @@
 import { isEscapeKey } from './util';
 import { resetEffect, onRadioClick } from './effect';
 import { resetScale, onButtonSmallerClick, onButtonBiggerClick } from './scale';
+import { sendPicrure } from './api';
 
 const body = document.querySelector('body');
 const inputUpload = document.querySelector('.img-upload__input');
@@ -87,14 +88,23 @@ pristine.addValidator(inputHashtags, validateUniqueHashtag, 'хэш-теги п�
 pristine.addValidator(inputDescription, validateComment, 'длина комментария больше 140 символов');
 
 
-form.addEventListener('submit', (evt) => {
+async function onFormSubmit (evt) {
   arrayTags = normalizeTags(inputHashtags.value);
   const isValid = pristine.validate();
+  evt.preventDefault();
 
-  if (!isValid) {
-    evt.preventDefault();
+  if (isValid) {
+    await sendPicrure (new FormData(evt.target));
+    // console.log(await sendPicrure (new FormData(evt.target)));
+    //TODO
+    // закрытие окна, сброс до исходного состояния  modalClose();
+    // сообщение 3.4.
   }
-});
+
+  //TODO
+  // не сбрасывать до исходного состояния
+  // сообщение 3.5.
+}
 
 function onInputChange() {
   modalOpen();
@@ -113,6 +123,7 @@ function onEscapeKeydown(evt) {
 
 function showForm() {
   inputUpload.addEventListener('change', onInputChange);
+  form.addEventListener('submit', onFormSubmit);
   uploadCancel.addEventListener('click', onClickCancel);
 }
 
