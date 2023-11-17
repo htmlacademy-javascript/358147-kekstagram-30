@@ -1,7 +1,7 @@
 import { createPicture } from './create-picture';
 import { isEscapeKey } from './util';
-// import { createData } from './data';
 import { loadPicrure } from './api';
+import { showMessageloadError } from './message';
 
 const template = document.querySelector('.big-picture');
 const commentTemplate = template.querySelector('.social__comment');
@@ -19,7 +19,7 @@ try {
   pictures = await loadPicrure();
   createPicture(pictures);
 } catch {
-  // TODO в блоке #data-error внутри шаблона template, перед закрывающим тегом </body> (4.2)
+  showMessageloadError();
 }
 
 let comments = [];

@@ -2,6 +2,7 @@ import { isEscapeKey } from './util';
 import { resetEffect, onRadioClick } from './effect';
 import { resetScale, onButtonSmallerClick, onButtonBiggerClick } from './scale';
 import { sendPicrure } from './api';
+import { showMessageSuccess, showMessageError } from './message';
 
 const body = document.querySelector('body');
 const inputUpload = document.querySelector('.img-upload__input');
@@ -88,22 +89,20 @@ pristine.addValidator(inputHashtags, validateUniqueHashtag, 'хэш-теги п�
 pristine.addValidator(inputDescription, validateComment, 'длина комментария больше 140 символов');
 
 
-async function onFormSubmit (evt) {
+async function onFormSubmit(evt) {
   arrayTags = normalizeTags(inputHashtags.value);
   const isValid = pristine.validate();
   evt.preventDefault();
 
   if (isValid) {
-    await sendPicrure (new FormData(evt.target));
-    // console.log(await sendPicrure (new FormData(evt.target)));
-    //TODO
-    // закрытие окна, сброс до исходного состояния  modalClose();
-    // сообщение 3.4.
+    try {
+      await sendPicrure(new FormData(evt.target));
+      modalClose();
+      showMessageSuccess();
+    } catch {
+      showMessageError();
+    }
   }
-
-  //TODO
-  // не сбрасывать до исходного состояния
-  // сообщение 3.5.
 }
 
 function onInputChange() {
@@ -114,12 +113,21 @@ function onClickCancel() {
   modalClose();
 }
 
+
+function isOpenError () {
+  if(body.querySelector('.error__inner')) {
+    return false;
+  }
+  return true;
+}
+
 function onEscapeKeydown(evt) {
-  if (isEscapeKey(evt) && !(document.activeElement === inputHashtags || document.activeElement === inputDescription)) {
+  if (isEscapeKey(evt) && !(document.activeElement === inputHashtags || document.activeElement === inputDescription) && isOpenError()) {
     evt.preventDefault();
     modalClose();
   }
 }
+
 
 function showForm() {
   inputUpload.addEventListener('change', onInputChange);
