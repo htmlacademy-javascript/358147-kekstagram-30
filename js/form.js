@@ -14,10 +14,13 @@ const form = document.querySelector('.img-upload__form');
 const effectList = document.querySelector('.effects__list');
 const buttonSmaller = document.querySelector('.scale__control--smaller');
 const buttonBigger = document.querySelector('.scale__control--bigger');
+const imgUploadPreview = document.querySelector('.img-upload__preview img');
+const effectPreview = document.querySelectorAll('.effects__preview');
 
 const MAX_LENGHT_COMMENT = 140;
 const MAX_COUNT_HASHTAG = 5;
 const HASHTAG_VALID = /^#[a-zа-яё0-9]{1,19}$/i;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 let arrayTags = [];
 
 const pristine = new Pristine(form, {
@@ -36,6 +39,16 @@ function modalOpen() {
   effectList.addEventListener('click', onRadioClick);
   buttonSmaller.addEventListener('click', onButtonSmallerClick);
   buttonBigger.addEventListener('click', onButtonBiggerClick);
+
+  const file = inputUpload.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if (matches) {
+    imgUploadPreview.src = URL.createObjectURL(file);
+    effectPreview.forEach((item) => {
+      item.style.backgroundImage = `url(${imgUploadPreview.src})`;
+    });
+  }
 }
 
 function modalClose() {
