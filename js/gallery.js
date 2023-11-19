@@ -33,13 +33,13 @@ function openModal(evt) {
   if (element) {
     evt.preventDefault();
     template.classList.remove('hidden');
-    template.querySelector('.big-picture__img img').src = evt.target.src;
     body.classList.add('modal-open');
 
     const elementId = +element.dataset.id;
     const elementData = pictures.find(({ id }) => id === elementId);
     const quantityComents = elementData.comments.length;
 
+    template.querySelector('.big-picture__img img').src = elementData.url;
     template.querySelector('.likes-count').textContent = elementData.likes;
     template.querySelector('.social__comment-total-count').textContent = quantityComents;
     template.querySelector('.social__caption').textContent = elementData.description;
