@@ -127,8 +127,8 @@ function onClickCancel() {
 }
 
 
-function isOpenError () {
-  if(body.querySelector('.error__inner')) {
+function isOpenError() {
+  if (body.querySelector('.error__inner')) {
     return false;
   }
   return true;
@@ -141,11 +141,6 @@ function onEscapeKeydown(evt) {
   }
 }
 
-
-function showForm() {
-  inputUpload.addEventListener('change', onInputChange);
-  form.addEventListener('submit', onFormSubmit);
-  uploadCancel.addEventListener('click', onClickCancel);
-}
-
-export { showForm };
+inputUpload.addEventListener('change', onInputChange);
+form.addEventListener('submit', onFormSubmit);
+uploadCancel.addEventListener('click', onClickCancel);
