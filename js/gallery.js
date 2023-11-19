@@ -2,6 +2,7 @@ import { createPicture } from './create-picture';
 import { isEscapeKey } from './util';
 import { loadPicrure } from './api';
 import { showMessageloadError } from './message';
+import { initFilter } from './filter';
 
 const template = document.querySelector('.big-picture');
 const commentTemplate = template.querySelector('.social__comment');
@@ -18,6 +19,7 @@ let pictures = {};
 try {
   pictures = await loadPicrure();
   createPicture(pictures);
+  initFilter(pictures);
 } catch {
   showMessageloadError();
 }
