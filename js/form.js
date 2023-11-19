@@ -16,11 +16,18 @@ const buttonSmaller = document.querySelector('.scale__control--smaller');
 const buttonBigger = document.querySelector('.scale__control--bigger');
 const imgUploadPreview = document.querySelector('.img-upload__preview img');
 const effectPreview = document.querySelectorAll('.effects__preview');
+const submitButton = document.querySelector('.img-upload__submit');
 
 const MAX_LENGHT_COMMENT = 140;
 const MAX_COUNT_HASHTAG = 5;
 const HASHTAG_VALID = /^#[a-zа-яё0-9]{1,19}$/i;
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
+const SubmintButtonCaption = {
+  SUBMITING: 'Отправляю...',
+  IDLE: 'Опубликовать',
+};
+
 let arrayTags = [];
 
 const pristine = new Pristine(form, {
@@ -108,13 +115,27 @@ async function onFormSubmit(evt) {
   evt.preventDefault();
 
   if (isValid) {
+
     try {
+      toggleSubmitButton(true);
       await sendPicrure(new FormData(evt.target));
       modalClose();
       showMessageSuccess();
+      toggleSubmitButton(false);
     } catch {
       showMessageError();
+      toggleSubmitButton(false);
     }
+  }
+}
+
+function toggleSubmitButton(isDisabled) {
+  submitButton.disabled = isDisabled;
+
+  if (isDisabled) {
+    submitButton.textContent = SubmintButtonCaption.SUBMITING;
+  } else {
+    submitButton.textContent = SubmintButtonCaption.IDLE;
   }
 }
 
