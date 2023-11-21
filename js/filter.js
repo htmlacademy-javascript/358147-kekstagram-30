@@ -8,9 +8,9 @@ const buttonDiscussed = document.querySelector('#filter-discussed');
 
 const QUANTITY_RANDOM_PICTURE = 10;
 
-function filterButtonToggler(curentButton) {
+function filterButtonToggler(evt) {
   document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-  curentButton.classList.add('img-filters__button--active');
+  evt.target.classList.add('img-filters__button--active');
 }
 
 function initFilter(data) {
@@ -58,17 +58,17 @@ function initFilter(data) {
 
   buttonDefault.addEventListener('click', (evt) => {
     debounceRepaint(evt);
-    filterButtonToggler(buttonDefault);
+    filterButtonToggler(evt);
   });
 
   buttonRandom.addEventListener('click', (evt) => {
     debounceRepaint(evt);
-    filterButtonToggler(buttonRandom);
+    filterButtonToggler(evt);
   });
 
   buttonDiscussed.addEventListener('click', (evt) => {
     debounceRepaint(evt);
-    filterButtonToggler(buttonDiscussed);
+    filterButtonToggler(evt);
   });
 }
 
