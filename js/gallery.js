@@ -1,8 +1,8 @@
-import { createPicture } from './create-picture';
-import { isEscapeKey } from './util';
-import { loadPicrure } from './api';
-import { showMessageloadError } from './message';
-import { initFilter } from './filter';
+import { createPicture } from './create-picture.js';
+import { isEscapeKey } from './util.js';
+import { loadPicrure } from './api.js';
+import { showMessageloadError } from './message.js';
+import { initFilter } from './filter.js';
 
 const template = document.querySelector('.big-picture');
 const commentTemplate = template.querySelector('.social__comment');
@@ -14,7 +14,7 @@ const CHANGE_STEP_COMMENT = 5;
 let commentCounter = 0;
 
 const fragment = document.createDocumentFragment();
-let pictures = {};
+let pictures = [];
 
 try {
   pictures = await loadPicrure();

@@ -1,8 +1,8 @@
-import { isEscapeKey } from './util';
-import { resetEffect, onRadioClick } from './effect';
-import { resetScale, onButtonSmallerClick, onButtonBiggerClick } from './scale';
-import { sendPicrure } from './api';
-import { showMessageSuccess, showMessageError } from './message';
+import { isEscapeKey } from './util.js';
+import { resetEffect, onRadioClick } from './effect.js';
+import { resetScale, onButtonSmallerClick, onButtonBiggerClick } from './scale.js';
+import { sendPicrure } from './api.js';
+import { showMessageSuccess, showMessageError } from './message.js';
 
 const body = document.querySelector('body');
 const inputUpload = document.querySelector('.img-upload__input');
@@ -121,9 +121,9 @@ async function onFormSubmit(evt) {
       await sendPicrure(new FormData(evt.target));
       modalClose();
       showMessageSuccess();
-      toggleSubmitButton(false);
     } catch {
       showMessageError();
+    } finally {
       toggleSubmitButton(false);
     }
   }

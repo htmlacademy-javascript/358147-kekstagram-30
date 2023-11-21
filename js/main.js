@@ -1,4 +1,4 @@
-import {renderGallery} from'./gallery';
-import './form';
+import {renderGallery} from'./gallery.js';
+import './form.js';
 
 renderGallery();

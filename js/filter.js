@@ -1,5 +1,5 @@
-import { createPicture } from './create-picture';
-import { getRandomInteger, debounce } from './util';
+import { createPicture } from './create-picture.js';
+import { getRandomInteger, debounce } from './util.js';
 
 const filter = document.querySelector('.img-filters');
 const buttonDefault = document.querySelector('#filter-default');
@@ -17,6 +17,11 @@ function repaint(arrey) {
   createPicture(arrey);
 }
 
+function filterButtonToggler (curentButton) {
+  document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+  curentButton.classList.add('img-filters__button--active');
+}
+
 const debounceRepaint = debounce(repaint);
 
 function initFilter(data) {
@@ -25,9 +30,7 @@ function initFilter(data) {
   buttonDefault.addEventListener('click', () => {
     debounceRepaint(data);
 
-    buttonDefault.classList.add('img-filters__button--active');
-    buttonRandom.classList.remove('img-filters__button--active');
-    buttonDiscussed.classList.remove('img-filters__button--active');
+    filterButtonToggler (buttonDefault);
   });
 
   buttonRandom.addEventListener('click', () => {
@@ -40,15 +43,10 @@ function initFilter(data) {
       }
     }
 
-    function random(index) {
-      return data[index];
-    }
+    debounceRepaint(randomIndexList.map((index) => data[index]));
 
-    debounceRepaint(randomIndexList.map(random));
 
-    buttonDefault.classList.remove('img-filters__button--active');
-    buttonRandom.classList.add('img-filters__button--active');
-    buttonDiscussed.classList.remove('img-filters__button--active');
+    filterButtonToggler (buttonRandom);
   });
 
   buttonDiscussed.addEventListener('click', () => {
@@ -58,9 +56,8 @@ function initFilter(data) {
 
     debounceRepaint([...data].sort(sorting));
 
-    buttonDefault.classList.remove('img-filters__button--active');
-    buttonRandom.classList.remove('img-filters__button--active');
-    buttonDiscussed.classList.add('img-filters__button--active');
+
+    filterButtonToggler (buttonDiscussed);
   });
 }
 

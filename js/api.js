@@ -1,3 +1,6 @@
+const LOAD_URL = 'https://30.javascript.pages.academy/kekstagram/data';
+const SEND_URL = 'https://30.javascript.pages.academy/kekstagram/';
+
 async function request (url, method, body = null) {
   const response = await fetch(url, {method, body});
   if (!response.ok) {
@@ -7,11 +10,11 @@ async function request (url, method, body = null) {
 }
 
 async function loadPicrure () {
-  return request('https://30.javascript.pages.academy/kekstagram/data', 'GET');
+  return request(LOAD_URL, 'GET');
 }
 
 async function sendPicrure (data) {
-  return request('https://30.javascript.pages.academy/kekstagram/', 'POST', data);
+  return request(SEND_URL, 'POST', data);
 }
 
 
