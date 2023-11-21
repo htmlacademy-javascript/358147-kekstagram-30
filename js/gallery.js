@@ -1,6 +1,8 @@
-import { createPicture } from './create-picture';
-import { isEscapeKey } from './util';
-import { createData } from './data';
+import { createPicture } from './create-picture.js';
+import { isEscapeKey } from './util.js';
+import { loadPicrure } from './api.js';
+import { showMessageloadError } from './message.js';
+import { initFilter } from './filter.js';
 
 const template = document.querySelector('.big-picture');
 const commentTemplate = template.querySelector('.social__comment');
@@ -12,9 +14,15 @@ const CHANGE_STEP_COMMENT = 5;
 let commentCounter = 0;
 
 const fragment = document.createDocumentFragment();
-const pictures = createData(25);
+let pictures = [];
 
-createPicture(pictures);
+try {
+  pictures = await loadPicrure();
+  createPicture(pictures);
+  initFilter(pictures);
+} catch {
+  showMessageloadError();
+}
 
 let comments = [];
 
@@ -25,13 +33,13 @@ function openModal(evt) {
   if (element) {
     evt.preventDefault();
     template.classList.remove('hidden');
-    template.querySelector('.big-picture__img img').src = evt.target.src;
     body.classList.add('modal-open');
 
     const elementId = +element.dataset.id;
     const elementData = pictures.find(({ id }) => id === elementId);
     const quantityComents = elementData.comments.length;
 
+    template.querySelector('.big-picture__img img').src = elementData.url;
     template.querySelector('.likes-count').textContent = elementData.likes;
     template.querySelector('.social__comment-total-count').textContent = quantityComents;
     template.querySelector('.social__caption').textContent = elementData.description;

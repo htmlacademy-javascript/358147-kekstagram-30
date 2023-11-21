@@ -5,21 +5,19 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-function createIdGenerator() {
-  let lastGeneratedId = 0;
-
-  return function () {
-    lastGeneratedId += 1;
-    return lastGeneratedId;
-  };
-}
-
 function isEscapeKey(evt) {
   if (evt.key === 'Escape') {
     return true;
   }
 }
 
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
 
-export { getRandomInteger, createIdGenerator, getRandomArrayElement, isEscapeKey };
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export { getRandomInteger, isEscapeKey, debounce };
