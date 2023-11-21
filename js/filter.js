@@ -8,32 +8,17 @@ const buttonDiscussed = document.querySelector('#filter-discussed');
 
 const QUANTITY_RANDOM_PICTURE = 10;
 
-function repaint(arrey) {
-  const pictures = document.querySelectorAll('.picture');
-  pictures.forEach((item) => {
-    item.remove();
-  });
-
-  createPicture(arrey);
-}
-
-function filterButtonToggler (curentButton) {
+function filterButtonToggler(curentButton) {
   document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
   curentButton.classList.add('img-filters__button--active');
 }
 
-const debounceRepaint = debounce(repaint);
-
 function initFilter(data) {
   filter.classList.remove('img-filters--inactive');
 
-  buttonDefault.addEventListener('click', () => {
-    debounceRepaint(data);
+  const debounceRepaint = debounce(repaint);
 
-    filterButtonToggler (buttonDefault);
-  });
-
-  buttonRandom.addEventListener('click', () => {
+  function getRandom() {
     const randomIndexList = [];
     const lengthArrey = Math.min(QUANTITY_RANDOM_PICTURE, data.length);
     while (randomIndexList.length < lengthArrey) {
@@ -43,21 +28,47 @@ function initFilter(data) {
       }
     }
 
-    debounceRepaint(randomIndexList.map((index) => data[index]));
+    createPicture(randomIndexList.map((index) => data[index]));
+  }
 
-
-    filterButtonToggler (buttonRandom);
-  });
-
-  buttonDiscussed.addEventListener('click', () => {
+  function getDiscussed() {
     function sorting(item1, item2) {
       return item2.comments.length - item1.comments.length;
     }
 
-    debounceRepaint([...data].sort(sorting));
+    createPicture([...data].sort(sorting));
+  }
+
+  function repaint(evt) {
+    const pictures = document.querySelectorAll('.picture');
+    pictures.forEach((item) => {
+      item.remove();
+    });
+
+    switch (evt.target.id) {
+      case 'filter-default':
+        return createPicture(data);
+      case 'filter-random':
+        return getRandom();
+      case 'filter-discussed':
+        return getDiscussed();
+    }
+  }
 
 
-    filterButtonToggler (buttonDiscussed);
+  buttonDefault.addEventListener('click', (evt) => {
+    debounceRepaint(evt);
+    filterButtonToggler(buttonDefault);
+  });
+
+  buttonRandom.addEventListener('click', (evt) => {
+    debounceRepaint(evt);
+    filterButtonToggler(buttonRandom);
+  });
+
+  buttonDiscussed.addEventListener('click', (evt) => {
+    debounceRepaint(evt);
+    filterButtonToggler(buttonDiscussed);
   });
 }
 
