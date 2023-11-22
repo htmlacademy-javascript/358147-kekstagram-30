@@ -1,9 +1,10 @@
-const control = document.querySelector('.scale__control--value');
-const previewImg = document.querySelector('.img-upload__preview img');
-
 const MAX_SCALE = 100;
 const MIN_SCALE = 25;
 const SCALE_STEP = 25;
+
+const control = document.querySelector('.scale__control--value');
+const previewImg = document.querySelector('.img-upload__preview img');
+
 
 function resetScale () {
   previewImg.style.transform = 'scale(1)';

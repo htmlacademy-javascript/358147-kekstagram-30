@@ -3,7 +3,6 @@ const sliderContainer = document.querySelector('.img-upload__effect-level');
 const effectValue = document.querySelector('.effect-level__value');
 const slider = document.querySelector('.effect-level__slider');
 
-let curentEffect = 'none';
 
 const sliderOptions = {
   none: {
@@ -51,6 +50,8 @@ const sliderOptions = {
   }
 };
 
+let curentEffect = 'none';
+
 function resetEffect () {
   sliderContainer.classList.add('hidden');
   imgPreview.style.filter = 'none';
@@ -75,7 +76,7 @@ slider.noUiSlider.on('update', () => {
 });
 
 
-function effect(evt) {
+function changeEffect(evt) {
   const element = evt.target.closest('.effects__radio');
 
   if (element) {
@@ -102,7 +103,7 @@ function effect(evt) {
 }
 
 function onRadioClick (evt) {
-  effect(evt);
+  changeEffect(evt);
 }
 
 export { resetEffect, onRadioClick };
