@@ -1,11 +1,12 @@
 import { isEscapeKey } from './util.js';
 
+const TIMEOUT_SHOW_MESSAGE = 5000;
+
 const body = document.querySelector('body');
 const elementMessageDataError = document.querySelector('#data-error').content.querySelector('.data-error');
 const elementMessageSuccess = document.querySelector('#success').content.querySelector('.success');
 const elementMessageError = document.querySelector('#error').content.querySelector('.error');
 
-const TIMEOUT_SHOW_MESSAGE = 5000;
 
 function showMessageloadError() {
   body.appendChild(elementMessageDataError);

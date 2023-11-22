@@ -4,6 +4,11 @@ import { resetScale, onButtonSmallerClick, onButtonBiggerClick } from './scale.j
 import { sendPicrure } from './api.js';
 import { showMessageSuccess, showMessageError } from './message.js';
 
+const MAX_LENGHT_COMMENT = 140;
+const MAX_COUNT_HASHTAG = 5;
+const HASHTAG_VALID = /^#[a-zа-яё0-9]{1,19}$/i;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const body = document.querySelector('body');
 const inputUpload = document.querySelector('.img-upload__input');
 const inputHashtags = document.querySelector('.text__hashtags');
@@ -18,10 +23,6 @@ const imgUploadPreview = document.querySelector('.img-upload__preview img');
 const effectPreview = document.querySelectorAll('.effects__preview');
 const submitButton = document.querySelector('.img-upload__submit');
 
-const MAX_LENGHT_COMMENT = 140;
-const MAX_COUNT_HASHTAG = 5;
-const HASHTAG_VALID = /^#[a-zа-яё0-9]{1,19}$/i;
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const SubmintButtonCaption = {
   SUBMITING: 'Отправляю...',

@@ -1,12 +1,13 @@
-import { createPicture } from './create-picture.js';
+import { createPictures } from './create-picture.js';
 import { getRandomInteger, debounce } from './util.js';
+
+const QUANTITY_RANDOM_PICTURE = 10;
 
 const filter = document.querySelector('.img-filters');
 const buttonDefault = document.querySelector('#filter-default');
 const buttonRandom = document.querySelector('#filter-random');
 const buttonDiscussed = document.querySelector('#filter-discussed');
 
-const QUANTITY_RANDOM_PICTURE = 10;
 
 function filterButtonToggler(curentButtom) {
   document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
@@ -28,7 +29,7 @@ function initFilter(data) {
       }
     }
 
-    createPicture(randomIndexList.map((index) => data[index]));
+    createPictures(randomIndexList.map((index) => data[index]));
   }
 
   function getDiscussed() {
@@ -36,7 +37,7 @@ function initFilter(data) {
       return item2.comments.length - item1.comments.length;
     }
 
-    createPicture([...data].sort(sorting));
+    createPictures([...data].sort(sorting));
   }
 
   function repaint(evt) {
@@ -47,7 +48,7 @@ function initFilter(data) {
 
     switch (evt.target.id) {
       case 'filter-default':
-        return createPicture(data);
+        return createPictures(data);
       case 'filter-random':
         return getRandom();
       case 'filter-discussed':

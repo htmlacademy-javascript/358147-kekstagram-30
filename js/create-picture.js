@@ -1,4 +1,4 @@
-function createPicture (data) {
+function createPictures (data) {
   const tamplate = document.querySelector('#picture');
   const pictures = document.querySelector('.pictures');
   const fragment = document.createDocumentFragment();
@@ -20,4 +20,4 @@ function createPicture (data) {
   pictures.appendChild(fragment);
 }
 
-export {createPicture};
+export { createPictures };
