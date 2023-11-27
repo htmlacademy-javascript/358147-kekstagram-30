@@ -8,7 +8,7 @@ const elementMessageSuccess = document.querySelector('#success').content.querySe
 const elementMessageError = document.querySelector('#error').content.querySelector('.error');
 
 
-function showMessageloadError() {
+function showMessageLoadError() {
   body.appendChild(elementMessageDataError);
 
   setTimeout(() => {
@@ -19,10 +19,10 @@ function showMessageloadError() {
 function showMessageSuccess() {
   const element = elementMessageSuccess.cloneNode(true);
   body.appendChild(element);
-  const successBbutton = element.querySelector('.success__button');
+  const successButton = element.querySelector('.success__button');
 
   document.addEventListener('keydown', onEscapeKeydown);
-  successBbutton.addEventListener('click', closeMessage);
+  successButton.addEventListener('click', closeMessage);
   document.addEventListener('click', onClickDocument);
 }
 
@@ -58,4 +58,4 @@ function onClickDocument(evt) {
   }
 }
 
-export { showMessageloadError, showMessageSuccess, showMessageError };
+export { showMessageLoadError, showMessageSuccess, showMessageError };
