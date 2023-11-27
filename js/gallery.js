@@ -1,7 +1,7 @@
 import { createPictures } from './create-picture.js';
 import { isEscapeKey } from './util.js';
 import { loadPicrure } from './api.js';
-import { showMessageloadError } from './message.js';
+import { showMessageLoadError } from './message.js';
 import { initFilter } from './filter.js';
 
 const CHANGE_STEP_COMMENT = 5;
@@ -22,7 +22,7 @@ try {
   createPictures (pictures);
   initFilter(pictures);
 } catch {
-  showMessageloadError();
+  showMessageLoadError();
 }
 
 let comments = [];
